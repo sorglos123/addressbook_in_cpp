@@ -8,7 +8,7 @@
 
 int compare_birthday(string d1, string d2)
 {
-	//returns -1 if d1 is before d2
+	// returns -1 if d1 is before d2
 	// returns 0 if d1==d2
 	// returns 1 if d1 is after d2
 
@@ -36,8 +36,8 @@ int compare_birthday(string d1, string d2)
 	
 	if (d1_year < d2_year) return -1; 
     if (d1_year == d2_year && d1_month < d2_month) return -1; 
-    if (d1_year == d2_year && d1_year == d2_year && d1_day < d2_day) return -1; 
-	if (d1_year == d2_year && d1_year == d2_year && d1_day == d2_day) return 0;
+    if (d1_year == d2_year && d1_month == d2_month && d1_day < d2_day) return -1; 
+	if (d1_year == d2_year && d1_month == d2_month && d1_day == d2_day) return 0;
 	return 1;
 }
 
@@ -45,11 +45,13 @@ contact *contact_list::getPivotElement(contact * contact_list)
 {
 	//Empty list
 	if(contact_list == NULL) return NULL;
+
 	//List with 1 element
 	if(contact_list->prev == NULL && contact_list->next == NULL) return contact_list;
+
 	//counters to find middle
-	int counter =0;
-	int halfcounter =0;
+	int counter = 0;
+	int halfcounter = 0;
 	contact_list=this->getFirstElement(contact_list);
 	while(contact_list->next != NULL) {counter++; contact_list=contact_list->next;}
 	halfcounter = counter/2;
@@ -70,8 +72,6 @@ contact * contact_list::findContact(const string &input, contact *contact_list, 
 	//3 street
 	//4 city
 	//5 dob
-	//6 house number
-	//7 zip code
 	
 	contact *no_result = contact_list; 
 	
@@ -102,12 +102,7 @@ contact * contact_list::findContact(int input, int field){
 
 contact * contact_list::findContact(int input, contact *contact_list, int field)
 {
-	//0 surname
-	//1 firstname 
-	//2 phone
-	//3 street
-	//4 city
-	//5 dob
+
 	//6 house number
 	//7 zip code
 	
@@ -163,7 +158,7 @@ contact * contact_list::sortByPhone(contact *contact_list, int i)
 			tmp_cur.erase(0,1);
 			
 			string tmp_piv = pivotelement->phone_number;
-			tmp_piv.erase(0, 1);
+			tmp_piv.erase(0,1);
 			
 			int cur_phone = stol(tmp_cur);
 			int piv_phone = stol(tmp_piv);
@@ -694,7 +689,6 @@ void contact_list::readContacts(string filePath)
 	{
 		while(getline(instream,line))
 		{	
-			
 			//whole line gets read into tmp initially
 			//init the tmp with read length and dont forget the closing zero
 			tmp = new char[line.length()+1];
