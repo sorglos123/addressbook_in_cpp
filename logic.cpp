@@ -523,7 +523,7 @@ contact * contact_list::sortByDOB(contact *contact_list, int i)
 			switch (i)
 			{
 			case 0: if(compare_birthday(curelement->dob, pivotelement->dob) > 0) right = appendElement(right, curelement); else left = appendElement(left, curelement); break;
-			case 1: if(compare_birthday(curelement->dob, pivotelement->dob) > 0) right = appendElement(right, curelement); else left = appendElement(left, curelement); break;
+			case 1: if(compare_birthday(curelement->dob, pivotelement->dob) < 0) right = appendElement(right, curelement); else left = appendElement(left, curelement); break;
 			}
 		}
 		curelement = nextelement;	
