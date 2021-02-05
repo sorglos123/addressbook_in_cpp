@@ -1,15 +1,15 @@
 CC = g++
 
-all: programm.bin
+all: adressbuch.bin
 
 clean:
-	rm -rf programm.bin *.o
+	rm -rf adressbuch.bin *.o
 
-programm.bin: logic.o ncurses.cpp
-	$(CC)  -o programm.bin logic.o ncurses.cpp -lncurses -lform
+adressbuch.bin: logic.o list.cpp
+	$(CC) -o adressbuch.bin logic.o list.cpp -lncurses -lform
 
-ncurses.o: ncurses.cpp
-	$(CC) -c -o ncurses.o ncurses.cpp -lncurses -lform
+list.o: list.cpp
+	$(CC) -c -o list.o list.cpp -lncurses -lform
 
-lgic.o: logic.hpp logic.cpp
+logic.o: logic.hpp logic.cpp
 	$(CC) -c -o logic.o logic.cpp 
