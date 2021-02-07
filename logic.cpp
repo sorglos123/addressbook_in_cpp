@@ -152,21 +152,10 @@ contact * contact_list::sortByPhone(contact *contact_list, int i)
 		}
 		else
 		{
-			//Phone numbers must be entered in canonincal formatting
-			//cleaning cannonical formatting to compare as int
-			string tmp_cur = curelement->phone_number;
-			tmp_cur.erase(0,1);
-			
-			string tmp_piv = pivotelement->phone_number;
-			tmp_piv.erase(0,1);
-			
-			int cur_phone = stol(tmp_cur);
-			int piv_phone = stol(tmp_piv);
-
 			switch(i)
 			{
-				case 0: if(cur_phone > piv_phone) right = appendElement(right, curelement); else left = appendElement(left, curelement); break;
-				case 1: if(cur_phone < piv_phone) right = appendElement(right, curelement); else left = appendElement(left, curelement); break; 
+				case 0: if(curelement->phone_number.compare(pivotelement->phone_number) > 0) right = appendElement(right, curelement); else left = appendElement(left, curelement); break; 
+				case 1: if(curelement->phone_number.compare(pivotelement->phone_number) < 0) right = appendElement(right, curelement); else left = appendElement(left, curelement); break;
 			}
 			
 		}
