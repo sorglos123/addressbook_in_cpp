@@ -5,11 +5,11 @@ all: adressbuch.bin
 clean:
 	rm -rf adressbuch.bin *.o
 
-adressbuch.bin: logic.o list.cpp
-	$(CC) -o adressbuch.bin logic.o list.cpp -lncurses -lform
+adressbuch.bin: logic.o adress.cpp
+	$(CC) -o adressbuch.bin logic.o adress.cpp -O2 -lfinal
 
-list.o: list.cpp
-	$(CC) -c -o list.o list.cpp -lncurses -lform
+ncurses.bin: logic.o ncurses.cpp
+	$(CC) -o ncurses.bin logic.o ncurses.cpp -lncurses -lform
 
 logic.o: logic.hpp logic.cpp
 	$(CC) -c -o logic.o logic.cpp 

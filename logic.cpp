@@ -4,6 +4,7 @@
 #include<iostream>
 #include<fstream>
 #include<iomanip>
+#include<ncurses.h>
 
 
 int compare_birthday(string d1, string d2)
@@ -707,5 +708,4 @@ void contact_list::readContacts(string filePath)
 		}
 		instream.close();
 	}
-
 }
