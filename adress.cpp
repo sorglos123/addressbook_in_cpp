@@ -16,12 +16,13 @@ void cb_findEntry(
   finalcut::FLineEdit * number, 
   finalcut::FLineEdit * zip, 
   finalcut::FLineEdit * city, 
-  finalcut::FWidget * adresslist)
+  finalcut::FWidget * adresslist,
+  const string &in)
 { 
   contact_list l;
-  string input = "contacts";
+  
   contact * element;
-  l.readContacts(input);
+  l.readContacts(in);
   element = l.getFirstElement();
   
   if(lastname->getText().isEmpty() == false)         element = l.findContact(lastname->getText().toString(), 0);
@@ -148,7 +149,7 @@ int main (int argc, char* argv[])
   (
     "clicked",
     &cb_findEntry,
-    lastname, firstname, dob, phone, street, number, zip, city, adresslist   
+    lastname, firstname, dob, phone, street, number, zip, city, adresslist, input 
   );
 
   vector<vector<string>> contactVector;
