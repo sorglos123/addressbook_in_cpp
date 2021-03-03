@@ -59,6 +59,7 @@ int main (int argc, char* argv[])
 {
   /* Kontaktliste einlesen */
   string input = "contacts";
+  if(argv[1] != NULL) input = argv[1]; 
   contact_list l;
   contact * cont; 
   l.readContacts(input);	
