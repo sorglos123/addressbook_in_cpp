@@ -98,34 +98,6 @@ contact * contact_list::findContact(const string &input, contact *contact_list, 
 	
 }
 
-//find int input
-contact * contact_list::findContact(int input, int field){
-	return findContact(input, this->elements, field);
-}
-
-contact * contact_list::findContact(int input, contact *contact_list, int field)
-{
-
-	//6 house number
-	//7 zip code
-	
-	contact *no_result = contact_list; 
-	
-	if(contact_list == NULL || (contact_list->prev == NULL & contact_list->next == NULL)) return contact_list;
-	contact_list = this->getFirstElement();
-	while(contact_list != NULL)
-	{
-		switch(field)
-		{
-			case 6: if (contact_list->house_number == input) return contact_list; else contact_list = contact_list->next; break; 
-			case 7: if (contact_list->zip_code == input ) return contact_list; else contact_list = contact_list->next; break; 
-		}
-	} 
-	//using no_result as focused contact; returning if result returns nothing
-	return no_result;
-	
-}
-
 contact * contact_list::sortByPhone(int i)
 {
 	//i = 0 decreasing order

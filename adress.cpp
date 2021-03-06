@@ -36,7 +36,8 @@ void cb_findEntry(
   else if(number->getText().isEmpty() == false)     element = l.findContact(number->getText().toString(), 6);
   else if(zip->getText().isEmpty() == false)    element =  l.findContact(zip->getText().toString(), 7);
   else if(city->getText().isEmpty() == false)   element = l.findContact(city->getText().toString(), 4);
-
+  std::stringstream zip_buffer;
+  zip_buffer << setfill('0') << setw(5) << element->zip_code << endl; 
   finalcut::FMessageBox info( 
     "Suchergebnis",
     "Nachname: " + element->surname + "\n" 
@@ -45,7 +46,7 @@ void cb_findEntry(
     "Telefon: " + element->phone_number + "\n" 
     "Straße: " + element->street_name + "\n"
     "Hausnummer: " + std::to_string(element->house_number) + "\n"
-    "Postleitzahl: " + std::to_string(element->zip_code) + "\n"
+    "Postleitzahl: " + zip_buffer.str() + "\n"
     "Wohnort: " + element->city + "\n",
     finalcut::FMessageBox::ButtonType::Ok,
     finalcut::FMessageBox::ButtonType::Reject,
@@ -166,7 +167,7 @@ int main (int argc, char* argv[])
   while(cont->next != NULL)
   {
     tmp.clear();
-     std::stringstream zip_buffer;
+    std::stringstream zip_buffer;
     zip_buffer << setfill('0') << setw(5) << cont->zip_code << endl; 
     tmp.push_back(cont->surname);
     tmp.push_back(cont->firstname);

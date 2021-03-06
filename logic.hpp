@@ -65,8 +65,6 @@ class contact_list
 
 		contact * findContact(const string &, int);
 		contact * findContact(const string &, contact *contact_list, int);
-		contact * findContact(int, int);
-		contact * findContact(int, contact *contact_list, int);
 
 		// contact * sortSurname(WINDOW *, string, contact * (contact contact_list::*sorter), int, contact_list, contact *, int);
 		contact * (contact_list::*x)();
