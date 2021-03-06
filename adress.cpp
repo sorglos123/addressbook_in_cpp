@@ -71,7 +71,7 @@ void cb_findEntry(
     finalcut::FLineEdit *number,
     finalcut::FLineEdit *zip,
     finalcut::FLineEdit *city,
-    finalcut::FWidget *adresslist,
+    finalcut::FDialog *search,
     const string &in)
 {
   contact_list l;
@@ -119,8 +119,12 @@ void cb_findEntry(
       finalcut::FMessageBox::ButtonType::Ok,
       finalcut::FMessageBox::ButtonType::Reject,
       finalcut::FMessageBox::ButtonType::Reject,
-      adresslist);
+      search);
+  info.setAlwaysOnTop();
+  search->setAlwaysOnTop(false); 
   info.show();
+  
+  
 }
 
 void cb_quit(const finalcut::FApplication &app)
@@ -148,6 +152,7 @@ int main(int argc, char *argv[])
   finalcut::FDialog *adress = new finalcut::FDialog(&app);
   adress->setText("Adressbuch");
   adress->setGeometry(finalcut::FPoint{2, 2}, finalcut::FSize{210, 50});
+  adress->setAlwaysOnTop(false);
 
   finalcut::FDialog *list = new finalcut::FDialog(adress);
   list->setText("Liste");
@@ -236,7 +241,7 @@ int main(int argc, char *argv[])
   findEntry->addCallback(
       "clicked",
       &cb_findEntry,
-      lastname, firstname, dob, phone, street, number, zip, city, adresslist, input);
+      lastname, firstname, dob, phone, street, number, zip, city, search, input);
 
   openPath->addCallback(
       "clicked",

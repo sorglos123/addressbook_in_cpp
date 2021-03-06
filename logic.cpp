@@ -73,8 +73,18 @@ contact * contact_list::findContact(const string &input, contact *contact_list, 
 	//3 street
 	//4 city
 	//5 dob
+	//7 House Number
+	//8 Zip
 	
-	contact *no_result = contact_list; 
+	contact *no_result = new contact;
+	no_result->surname ="Kein";
+	no_result->firstname="Kontakt";
+	no_result->phone_number="Gefunden";
+	no_result->street_name="";
+	no_result->house_number=0;
+	no_result->zip_code=0;
+	no_result->city="";
+	no_result->dob="";
 	
 	if(contact_list == NULL || &input == NULL|| (contact_list->prev == NULL & contact_list->next == NULL)) return contact_list;
 	contact_list = this->getFirstElement();
