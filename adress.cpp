@@ -83,6 +83,7 @@ int main (int argc, char* argv[])
   finalcut::FDialog * list = new finalcut::FDialog(adress);
   list->setText("Liste");
   list->setGeometry(finalcut::FPoint {5, 5}, finalcut::FSize {160, 45});
+  list->setAlwaysOnTop();
 
   finalcut::FButton * quit = new finalcut::FButton(adress);
   quit->setGeometry(finalcut::FPoint{167, 45}, finalcut::FSize{20, 1});
@@ -93,8 +94,21 @@ int main (int argc, char* argv[])
     &cb_quit,
     std::ref(app)
   );
+ /* individuelle Adressdatei*/
+  finalcut::FDialog * open_contactlist = new finalcut::FDialog(adress);
+  open_contactlist->setText("Dateipfad");
+  open_contactlist->setGeometry(finalcut::FPoint {167, 32}, finalcut::FSize {40, 10});
+  open_contactlist->setAlwaysOnTop();
 
-  finalcut::FDialog * search = new finalcut::FDialog(list);
+  finalcut::FLineEdit * filepath = new finalcut::FLineEdit(open_contactlist);
+  filepath->setGeometry(finalcut::FPoint{167, 1}, finalcut::FSize{30, 1});
+  filepath->setLabelText (L"&Dateipfad");
+
+
+  /*Suche */
+
+  finalcut::FDialog * search = new finalcut::FDialog(adress);
+  search->setAlwaysOnTop();
   search->setText("Suche");
   search->setGeometry(finalcut::FPoint {167, 5}, finalcut::FSize {40, 22});
   
@@ -135,6 +149,7 @@ int main (int argc, char* argv[])
   findEntry->setText (L"&Kontakt finden");
   /* ### */
 
+ 
   /* Adresslistenansicht erstellen & befüllen */
   finalcut::FListView * adresslist = new finalcut::FListView(list); 
   adresslist->setGeometry (finalcut::FPoint{2, 2}, finalcut::FSize{150, 40});
