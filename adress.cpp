@@ -134,16 +134,11 @@ void cb_quit(const finalcut::FApplication &app)
 
 int main(int argc, char *argv[])
 {
-  /* Kontaktliste einlesen */
-  /*string input = "contacts";
+ 
+  /* ### */
+  string input = "contacts";
   if (argv[1] != NULL)
     input = argv[1];
-  contact_list l;
-  contact *cont;
-  l.readContacts(input);
-  cont = l.getFirstElement();
-  /* ### */
-
   /* Hauptapplikation erstellen */
   finalcut::FApplication app(argc, argv);
   /* ### */
@@ -237,7 +232,7 @@ int main(int argc, char *argv[])
   adresslist->addColumn("Wohnort");
 
   // Sortierung der FListView checken!?
-  string input = "contacts";
+
   findEntry->addCallback(
       "clicked",
       &cb_findEntry,
@@ -253,6 +248,8 @@ int main(int argc, char *argv[])
   /* Füge die Elemente des Vektors contactVector zur ListView hinzu */
 
   /* ### */
+ 
+  fillList(adresslist, input);
 
   finalcut::FWidget::setMainWidget(adress);
   adress->show();
