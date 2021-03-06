@@ -4,6 +4,8 @@
 #include<final/final.h>
 #include<vector> 
 #include<fstream>
+#include <iostream> 
+#include <sstream>   
 
 using namespace std;
 
@@ -22,6 +24,7 @@ void cb_findEntry(
   contact_list l;
   
   contact * element;
+  contact  zip_element;
   l.readContacts(in);
   element = l.getFirstElement();
   
@@ -31,7 +34,7 @@ void cb_findEntry(
   else if(phone->getText().isEmpty() == false)     element = l.findContact(phone->getText().toString(), 2);
   else if(street->getText().isEmpty() == false)  element = l.findContact(street->getText().toString(), 3);
   else if(number->getText().isEmpty() == false)     element = l.findContact(number->getText().toString(), 6);
-  else if(zip->getText().isEmpty() == false)     element = l.findContact(zip->getText().toString(), 7);
+  else if(zip->getText().isEmpty() == false)    element =  l.findContact(zip->getText().toString(), 7);
   else if(city->getText().isEmpty() == false)   element = l.findContact(city->getText().toString(), 4);
 
   finalcut::FMessageBox info( 
@@ -163,14 +166,15 @@ int main (int argc, char* argv[])
   while(cont->next != NULL)
   {
     tmp.clear();
-
+     std::stringstream zip_buffer;
+    zip_buffer << setfill('0') << setw(5) << cont->zip_code << endl; 
     tmp.push_back(cont->surname);
     tmp.push_back(cont->firstname);
     tmp.push_back(cont->dob);
     tmp.push_back(cont->phone_number);
     tmp.push_back(cont->street_name);
     tmp.push_back(to_string(cont->house_number));
-    tmp.push_back(to_string(cont->zip_code));
+    tmp.push_back(zip_buffer.str());
     tmp.push_back(cont->city);
 
     contactVector.push_back(tmp);
