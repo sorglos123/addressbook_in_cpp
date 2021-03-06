@@ -88,6 +88,8 @@ contact * contact_list::findContact(const string &input, contact *contact_list, 
 			case 3: if (contact_list->street_name.compare(input) == 0) return contact_list; else contact_list = contact_list->next; break; 
 			case 4: if (contact_list->city.compare(input) == 0) return contact_list; else contact_list = contact_list->next; break; 
 			case 5: if (contact_list->dob.compare(input) == 0) return contact_list; else contact_list = contact_list->next; break; 
+			case 6: if (contact_list->house_number == stoi(input)) return contact_list; else contact_list = contact_list->next; break;
+			case 7: if (contact_list->zip_code == stoi(input)) return contact_list; else contact_list = contact_list->next; break; 
 			
 		}
 	} 
