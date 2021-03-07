@@ -18,8 +18,6 @@ WINDOW * createWindow(int verDim, int horDim, int verPos, int horPos, const char
 }
 
 std::tuple<FIELD*, FORM*> createForm(FIELD *field[8], FORM *addressData) {
-    // FIELD *field[8];
-	// FORM *addressData;
 
     /* Erstellung der Formularfelder für die Eingabe der Daten */
 	/* NCurses: new_field(rows, cols, frow, fcol, offrows, offcols) */
@@ -59,7 +57,6 @@ std::tuple<FIELD*, FORM*> createForm(FIELD *field[8], FORM *addressData) {
 
 	addressData = new_form(field);
 	post_form(addressData);
-	// refresh();
 
 	mvprintw(3, 195, "Nachname:");
 	mvprintw(7, 195, "Vorname:");	
@@ -180,7 +177,7 @@ char * trim(char *str)
 {
 	char *end;
 
-	/* Remove leading whitespaces */
+	/* führende Leerzeichen entfernen */
 	while(isspace(*str))
 	{
   		str++;
@@ -188,7 +185,7 @@ char * trim(char *str)
 
 	if(*str == 0) return str;
 
-	/* Remove trailing whitespaces */
+	/* Leerzeichen am Ende entfernen */
   	end = str + strnlen(str, 128) - 1;
 
   	while(end > str && isspace(*end))
@@ -196,7 +193,7 @@ char * trim(char *str)
   		end--;
   	}
 
-  	/* Important: Write new string terminator "\0" ! */
+  	/* Schreiben eines neuen String-Terminierers "\0" ! */
   	*(end+1) = '\0';
 
   	return str;
@@ -204,7 +201,7 @@ char * trim(char *str)
 
 int main(int argc, char ** argv)
 {   
-    string input = "names01";
+    string input = "contacts";
 	contact_list l;
 	contact *cont; 
     contact *element;
@@ -229,8 +226,6 @@ int main(int argc, char ** argv)
     
     FIELD *field[8];
 	FORM *addressData;
-    // tie(field[8], addressData) = createForm(field, addressData);
-	// refresh();
    
     mvwprintw(level,2,2,"Navigation");
     wrefresh(level);
@@ -263,10 +258,6 @@ int main(int argc, char ** argv)
                     switch(c4) 
                     {
                         case 'q':
-                            /* Funktioniert leider noch nicht: */
-                            // l.x = contact_list::sortBySurname(0);
-                            //l.sortSurname(hit, "q", contact * (contact_list::*sorter), 0, l, contact, counter);
-                            // l.x = &contact_list::sortBySurname(1);
                             mvwprintw(hit,2,2,"q");
                             l.sortBySurname(0);
                             cont = l.getFirstElement();
@@ -383,7 +374,7 @@ int main(int argc, char ** argv)
                     }
                 }
             case KEY_RIGHT:
-                // Wechsle zur Suche
+                /* Wechsel zur Suche */
                 refresh();
                 tie(field[8], addressData) = createForm(field, addressData);
 	            refresh();
@@ -425,7 +416,7 @@ int main(int argc, char ** argv)
           				    else printw("> : >");
         			        }
 
-                            // Alle Fenster refreshen, damit alles weiterhin angezeigt wird!
+                            /* Alle Fenster refreshen, damit alles weiterhin angezeigt wird! */
         			        refresh();
 
         			        pos_form_cursor(addressData);
