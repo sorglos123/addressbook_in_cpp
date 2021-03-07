@@ -1,0 +1,26 @@
+### Präsentation
+1. Vorstellung: Was war unser Thema? Was sollten wir programmieren? (B)
+	-> siehe oben
+2. Verwendete Technologien: VM, Vim-Editor, VS Code per SSH auf VM, NCurses bzw. FinalCut (B) ~ 5 min (mit 1. Teil)
+3. Demo FinalCut-Version (S)																	~ 5 min
+	-> Adressliste auswählen & öffnen
+	-> Adressliste sortieren absteigend/aufsteigend
+	-> nach Kontakt suchen können
+4. Probleme/Herausforderungen
+	-> 4.1. NCurses Vs. FinalCut (B) ~ 3 min
+		-> Ncurses: Probleme mit Navigation/Steuerung, Fensterdarstellung mit refresh(), Implementierung der Kontaktsuche nicht funktioniert
+		-> deshalb Umstieg auf FinalCut
+	-> 4.2. unterschiedliche Sortieralgorithmen: (B) ~ 3 min
+		-> Saschas Sortieralgorithmen funktionieren mit NCurses, 
+		-> während bei FinalCut Sortieralgorithmen des Entwicklers (SwapSort) genutzt werden
+		-> Quicksort Vs. SwapSort
+	-> 4.2. FinalCut (S/B)	~ 10 min
+		-> Optimierungsbedarf v.a. bzgl. Auslagerung in einzelne Methoden ==> (B)
+		-> Sortierung nach Hausnummer fkt. nicht, da Hausnummer als String in die Adressliste (Vektor) gepusht wird ==> konnte nicht gelöst werden (B)
+		-> Padding der PLZs		==> konnte gelöst werden (S)
+		-> Einlesen unterschiedlicher Kontaktlisten  ==> konnte gelöst werden (S)
+	-> 4.3. Logikebene (S) ~ 5 min
+		-> viel redundanter Code
+		-> eigene Sortierung für Geburtsdaten
+		-> hier Logik zeigen
+5. NCurses-Version zeigen mit Verweis auf fkt. Logik-Elemente (B) ~ 5 min
