@@ -12,8 +12,11 @@ using namespace std;
 void fillList(finalcut::FListView *adresslist, const string &input)
 {
   
- 
+  std::ifstream test(input); 
+  //catching errors if fp is invalid
+  if (!test) return; 
   contact_list l;
+  test.close();
   contact *cont;
   l.readContacts(input);
   cont = l.getFirstElement();

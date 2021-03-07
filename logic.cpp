@@ -659,6 +659,7 @@ void contact_list::readContacts(string filePath)
 	int zip_code_tmp = 0;
 
 	ifstream instream(filePath);
+	if(instream.fail()) return; 
 	if(instream.is_open())
 	{
 		while(getline(instream,line))
