@@ -124,7 +124,7 @@ void cb_findEntry(
       finalcut::FMessageBox::ButtonType::Reject,
       search);
   info.setAlwaysOnTop();
-  search->setAlwaysOnTop(false); 
+  //search->setAlwaysOnTop(false); 
   info.show();
   
   
@@ -150,7 +150,7 @@ int main(int argc, char *argv[])
   finalcut::FDialog *adress = new finalcut::FDialog(&app);
   adress->setText("Adressbuch");
   adress->setGeometry(finalcut::FPoint{2, 2}, finalcut::FSize{210, 50});
-  adress->setAlwaysOnTop(false);
+  //adress->setAlwaysOnTop(false);
 
   finalcut::FDialog *list = new finalcut::FDialog(adress);
   list->setText("Liste");
@@ -233,6 +233,7 @@ int main(int argc, char *argv[])
   adresslist->addColumn("Hausnummer");
   adresslist->addColumn("PLZ");
   adresslist->addColumn("Wohnort");
+  
 
   // Sortierung der FListView checken!?
 
