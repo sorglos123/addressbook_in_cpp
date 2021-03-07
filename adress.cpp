@@ -9,26 +9,31 @@
 
 using namespace std;
 
+/* Befüllen der Adresslistenübersicht */
 void fillList(finalcut::FListView *adresslist, const string &input)
 {
-  
+  /* Einlesen der Kontaktliste */
   std::ifstream test(input); 
-  //catching errors if fp is invalid
-  if (!test) return; 
+  
+  if (!test) return; // Abfangen, falls der Dateipfad nicht existiert
   contact_list l;
   test.close();
+
   contact *cont;
   l.readContacts(input);
   cont = l.getFirstElement();
   adresslist->clear();
-  vector<vector<string>> contactVector;
-  vector<string> tmp;
-  std::stringstream zip_buffer;
+
   /* Darstellung der Kontakte aus der Kontakliste:
     - Geh die eingelesene Kontaktliste vom ersten bis zum letzten Element durch;
     - Setze vor jedem Durchlauf den Vektor tmp zurück;
     - Speichere die Felder der Einträge im "inneren" Vektor tmp;
-    - Speichere schließlich den Vektor tmp im "äußeren" Vektor contactVector  */
+    - Speichere schließlich den Vektor tmp im "äußeren" Vektor contactVector  
+    - zip_buffer wird benötigt, damit die PLZ korrekt mit führenden Nullen dargestellt werden*/
+  vector<vector<string>> contactVector;
+  vector<string> tmp;
+  std::stringstream zip_buffer;
+  
   while (cont->next != NULL)
   {
     tmp.clear();
@@ -56,6 +61,7 @@ void fillList(finalcut::FListView *adresslist, const string &input)
   }
 }
 
+/* Callback-Funktion für "Datei auswählen"-Button */
 void cb_openPath(finalcut::FLineEdit *filepath, finalcut::FListView *adresslist)
 {
   
@@ -65,6 +71,7 @@ void cb_openPath(finalcut::FLineEdit *filepath, finalcut::FListView *adresslist)
   }
 }
 
+/* Callback-Funktion für "Kontakt finden"-Button */
 void cb_findEntry(
     finalcut::FLineEdit *lastname,
     finalcut::FLineEdit *firstname,
@@ -78,12 +85,13 @@ void cb_findEntry(
     const string &in)
 {
   contact_list l;
-
   contact *element;
   contact zip_element;
   l.readContacts(in);
   element = l.getFirstElement();
 
+  /* Falls das der Funktion übergebene Textfeld nicht leer ist, wird anhand des darin befindlichen Textes ein 
+    Kontakt aus der Kontaktliste herausgesucht. */
   if (lastname->getText().isEmpty() == false)
     element = l.findContact(lastname->getText().toString(), 0);
   else if (firstname->getText().isEmpty() == false)
@@ -100,6 +108,8 @@ void cb_findEntry(
     element = l.findContact(zip->getText().toString(), 7);
   else if (city->getText().isEmpty() == false)
     element = l.findContact(city->getText().toString(), 4);
+  
+  /* Darstellung des ermittelten Kontaktes innerhalb einer FMessageBox */
   std::stringstream zip_buffer;
   zip_buffer << setfill('0') << setw(5) << element->zip_code << endl;
   finalcut::FMessageBox info(
@@ -126,37 +136,41 @@ void cb_findEntry(
   info.setAlwaysOnTop();
   //search->setAlwaysOnTop(false); 
   info.show();
-  
-  
 }
 
+/* Callback-Funktion für "Anwendung beenden"-Button */
 void cb_quit(const finalcut::FApplication &app)
 {
   app.quit();
 }
 
+/* Main-Methode */
 int main(int argc, char *argv[])
 {
- 
-  /* ### */
-  string input = "contacts";
+  /* Einlesen der Default-Belegung der Adresslistenübersicht; falls ein Kommandozeilenargument mitübergeben wird,
+    wird der Inhalt dieser Datei angezeigt. */
+  string input = "contacts"; 
   if (argv[1] != NULL)
     input = argv[1];
+
   /* Hauptapplikation erstellen */
   finalcut::FApplication app(argc, argv);
-  /* ### */
 
-  /* Fenster innerhalb der Hauptapplikation erstellen */
+  /* Fenster innerhalb der Hauptapplikation erstellen:
+  
+    Hauptfenster */
   finalcut::FDialog *adress = new finalcut::FDialog(&app);
   adress->setText("Adressbuch");
   adress->setGeometry(finalcut::FPoint{2, 2}, finalcut::FSize{210, 50});
   //adress->setAlwaysOnTop(false);
 
+  /* Adressliste */
   finalcut::FDialog *list = new finalcut::FDialog(adress);
   list->setText("Liste");
   list->setGeometry(finalcut::FPoint{5, 5}, finalcut::FSize{160, 45});
   list->setAlwaysOnTop();
 
+  /* Button zum Beenden der Anwendung */
   finalcut::FButton *quit = new finalcut::FButton(adress);
   quit->setGeometry(finalcut::FPoint{167, 45}, finalcut::FSize{20, 1});
   quit->setText(L"&Anwendung beenden");
@@ -164,22 +178,24 @@ int main(int argc, char *argv[])
       "clicked",
       &cb_quit,
       std::ref(app));
-  /* individuelle Adressdatei*/
+
+  /* Fenster für die Auswahl einer anzuzeigenden Datei */
   finalcut::FDialog *open_contactlist = new finalcut::FDialog(adress);
   open_contactlist->setText("Dateipfad");
   open_contactlist->setGeometry(finalcut::FPoint{167, 32}, finalcut::FSize{40, 10});
   open_contactlist->setAlwaysOnTop();
 
+  /* Textfeld zur Eingabe der Datei */
   finalcut::FLineEdit *filepath = new finalcut::FLineEdit(open_contactlist);
   filepath->setGeometry(finalcut::FPoint{167, 1}, finalcut::FSize{30, 1});
   filepath->setLabelText(L"&Dateipfad");
 
+  /* Button zur Anzeige der Datei */
   finalcut::FButton *openPath = new finalcut::FButton(open_contactlist);
   openPath->setGeometry(finalcut::FPoint{167, 3}, finalcut::FSize{20, 1});
   openPath->setText(L"&Dateipfad öffnen");
 
-  /*Suche */
-
+  /* Suchfenster inkl. Textfelder zur Kontaktsuche */
   finalcut::FDialog *search = new finalcut::FDialog(adress);
   search->setAlwaysOnTop();
   search->setText("Suche");
@@ -234,9 +250,6 @@ int main(int argc, char *argv[])
   adresslist->addColumn("PLZ");
   adresslist->addColumn("Wohnort");
   
-
-  // Sortierung der FListView checken!?
-
   findEntry->addCallback(
       "clicked",
       &cb_findEntry,
@@ -248,14 +261,12 @@ int main(int argc, char *argv[])
       filepath, adresslist);
 
   //fillList(adresslist, "contacts2");
-
-  /* Füge die Elemente des Vektors contactVector zur ListView hinzu */
-
-  /* ### */
  
   fillList(adresslist, input);
 
+  /* Setzt das Hauptfenster als sog. "Main Widget" & stellt es dar */
   finalcut::FWidget::setMainWidget(adress);
   adress->show();
+
   return app.exec();
 }
